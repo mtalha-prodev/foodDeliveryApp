@@ -8,19 +8,17 @@
 import React from 'react';
 import {
   SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
   Text,
   View,
 } from 'react-native';
+import Navigator from './src/Navigator/Navigator';
 
 
 const App = ()=>{
   return(
-    <View>
-      <Text>Welcome Food Delivery App</Text>
-    </View>
+    // <View>
+      <Navigator />
+    // </View>
   )
 }
 export default App;
