@@ -1,25 +1,50 @@
-import { View, Text } from 'react-native'
-import React from 'react'
-import { NavigationContainer } from '@react-navigation/native'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import Splash from '../Screens/Splash'
-import Login from '../Screens/Login'
-import Signup from '../Screens/Signup'
-import Home from '../Screens/Home'
-
+import {View, Text, StatusBar} from 'react-native';
+import React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import Splash from '../Screens/Splash';
+import Login from '../Screens/Login';
+import Signup from '../Screens/Signup';
+import Home from '../Screens/Home';
+import AdminLogin from '../admin/AdminLogin';
 
 const Navigator = () => {
-   const Stack = createNativeStackNavigator()
+  const Stack = createNativeStackNavigator();
   return (
-    <NavigationContainer>
+    <View style={{flex: 1}}>
+      <StatusBar barStyle={'light-content'} backgroundColor="#E74C3C" />
+      <NavigationContainer>
         <Stack.Navigator>
-            <Stack.Screen name='Splash'component={Splash} options={{headerShown:false}} />
-            <Stack.Screen name='Login' component={Login} options={{headerShown:false}} />
-            <Stack.Screen name='Signup' component={Signup} />
-            <Stack.Screen name='Home' component={Home}/>
+          <Stack.Screen
+            name="Splash"
+            component={Splash}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Login"
+            component={Login}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Signup"
+            component={Signup}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Home"
+            component={Home}
+            options={{headerShown: false}}
+          />
+          {/* admin screen */}
+          <Stack.Screen
+            name="Admin"
+            component={AdminLogin}
+            options={{headerShown: false}}
+          />
         </Stack.Navigator>
-    </NavigationContainer>
-  )
-}
+      </NavigationContainer>
+    </View>
+  );
+};
 
-export default Navigator
+export default Navigator;

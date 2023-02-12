@@ -7,13 +7,13 @@ const Splash = () => {
     const navigation= useNavigation()
     useEffect(() => {
         setTimeout(() => {
-            navigation.dispatch(StackActions.replace('Login'))
+            navigation.dispatch(StackActions.replace('Admin'))
         }, 2000);
     }, [])
 
   return (
-    <View style={{flex:1, justifyContent:'center',alignItems:'center',backgroundColor:'#273746'}} > 
-      <Text style={{fontSize:25,color:"white"}} >Splash</Text>
+    <View style={{flex:1, justifyContent:'center',alignItems:'center',backgroundColor:'#E74C3C'}} > 
+      <Text style={{fontSize:25,color:"white"}} >FoodApp</Text>
     </View>
   )
 }
