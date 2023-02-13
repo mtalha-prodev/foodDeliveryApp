@@ -6,25 +6,37 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import firestore from '@react-native-firebase/firestore';
 
 const AdminLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  useEffect(() => {
+    // firestore().collection('admin').add({
+    //     email:'admin0018@gmail.com',
+    //     password:'admin@0018'
+    // })
+  }, [])
+
   const handleLogin = async () => {
     try {
 
-        
+        const admin = await firestore().collection('admin').get()
+        console.log(admin.docs[0]._data);
 
-      if (email.length > 0 && password.length > 0) {
-        console.warn('admin login Successfuly');
-        console.log(email,password)
-        setEmail('');
-        setPassword('');
-      }else{
-        console.warn('please Enter valid Detaiels');
-      }
+    //   if (email.length > 0 && password.length > 0) {
+        
+        
+        
+    //     console.warn('admin login Successfuly');
+    //     console.log(email,password)
+    //     setEmail('');
+    //     setPassword('');
+    //   }else{
+    //     console.warn('please Enter valid Detaiels');
+    //   }
     } catch (error) {
         console.log(error)
     }
