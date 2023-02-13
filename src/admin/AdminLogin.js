@@ -5,13 +5,17 @@ import {
   StyleSheet,
   TouchableOpacity,
   Dimensions,
+  Alert,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import firestore from '@react-native-firebase/firestore';
+import { useNavigation,StackActions } from '@react-navigation/native';
 
 const AdminLogin = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [adminEmail, setAdminEmail] = useState('');
+  const [adminPassword, setAdminPassword] = useState('');
+
+  const navigation = useNavigation()
 
   useEffect(() => {
     // firestore().collection('admin').add({
@@ -24,19 +28,23 @@ const AdminLogin = () => {
     try {
 
         const admin = await firestore().collection('admin').get()
-        console.log(admin.docs[0]._data);
+        const {email,password} = admin.docs[0]._data
+        console.log(email,password);
 
-    //   if (email.length > 0 && password.length > 0) {
+      if (adminEmail == email  && adminPassword == password) {
         
-        
-        
-    //     console.warn('admin login Successfuly');
-    //     console.log(email,password)
-    //     setEmail('');
-    //     setPassword('');
-    //   }else{
-    //     console.warn('please Enter valid Detaiels');
-    //   }
+        console.log(email,password)
+        Alert.alert('Alert','Admin Login Successfuly');
+
+        navigation.dispatch(StackActions.replace('Dashboard'))
+
+        setTimeout(() => {
+          setAdminEmail('');
+          setAdminPassword('');   
+        }, 2000);
+      }else{
+        console.warn('Wrong email/password');
+      }
     } catch (error) {
         console.log(error)
     }
@@ -48,16 +56,16 @@ const AdminLogin = () => {
       <View style={style.inputForm}>
         <TextInput
           style={style.inputText}
-          onChangeText={val => setEmail(val)}
-          value={email}
+          value={adminEmail}
+          onChangeText={val => setAdminEmail(val)}
           placeholder="Enter Email ..."
         />
       </View>
       <View style={style.inputForm}>
         <TextInput
           style={style.inputText}
-          onChangeText={val => setPassword(val)}
-          value={password}
+          value={adminPassword}
+          onChangeText={val => setAdminPassword(val)}
           placeholder="Enter Password ..."
         />
       </View>

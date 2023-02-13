@@ -7,6 +7,7 @@ import Login from '../Screens/Login';
 import Signup from '../Screens/Signup';
 import Home from '../Screens/Home';
 import AdminLogin from '../admin/AdminLogin';
+import Dashboard from '../admin/Dashboard';
 
 const Navigator = () => {
   const Stack = createNativeStackNavigator();
@@ -41,6 +42,12 @@ const Navigator = () => {
             component={AdminLogin}
             options={{headerShown: false}}
           />
+          <Stack.Screen
+            name="Dashboard"
+            component={Dashboard}
+            options={{headerShown: false}}
+          />
+
         </Stack.Navigator>
       </NavigationContainer>
     </View>
