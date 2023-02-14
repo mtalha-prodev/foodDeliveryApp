@@ -160,7 +160,7 @@ const style = StyleSheet.create({
     backgroundColor: '#fff',
     justifyContent: 'center',
     paddingLeft: 15,
-    marginBottom: 20,
+    marginBottom: 10,
   },
   hText: {
     fontSize: 18,
@@ -205,6 +205,7 @@ const style = StyleSheet.create({
     borderRadius: 15,
     alignSelf: 'center',
     borderWidth: 1,
+    marginVertical:20
   },
 });
 
