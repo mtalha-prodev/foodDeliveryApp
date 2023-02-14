@@ -19,6 +19,7 @@ const Add = () => {
   const [discountPrice, setDiscountPrice] = useState(null);
   const [desc, setDesc] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
+  const [downloadImageUri, setDownloadImageUri] = useState(null);
 
   const SelectImg = async () => {
     try {
@@ -38,17 +39,21 @@ const Add = () => {
   const addItem = async () => {
     try {
       if (itemName && price && discountPrice && desc && imageUrl) {
+        const response = storage().ref(`items/${imageUrl.name}`);
+
+        const put = await response.putFile(imageUrl.fileCopyUri);
+        // upload image in firestore
+        const url = await response.getDownloadURL();
+        // console.log(url);
+
         await firestore().collection('items').add({
           itemName,
           price,
           discountPrice,
           desc,
-          imageUrl,
+          url,
         });
 
-        await storage()
-          .ref(`items/${imageUrl.name}`)
-          .putFile(imageUrl.fileCopyUri);
         Alert.alert('Item upload successfuly');
 
         setTimeout(() => {
@@ -85,10 +90,12 @@ const Add = () => {
       <View style={style.header}>
         <Text style={style.hText}>Add Item</Text>
       </View>
-      <ScrollView  >
-        {imageUrl !== null ? (
+      <ScrollView>
+        {imageUrl ? (
           <Image source={{uri: imageUrl.uri}} style={style.imgStyle} />
-        ) : null}
+        ) : (
+          ''
+        )}
         <TextInput
           style={style.inputStyle}
           placeholder="Enter Item Name ..."
@@ -192,7 +199,7 @@ const style = StyleSheet.create({
     height: 40,
     justifyContent: 'center',
     borderRadius: 15,
-    marginBottom:100
+    marginBottom: 100,
   },
   btnText: {
     color: '#fff',
@@ -205,7 +212,7 @@ const style = StyleSheet.create({
     borderRadius: 15,
     alignSelf: 'center',
     borderWidth: 1,
-    marginVertical:20
+    marginVertical: 20,
   },
 });
 
