@@ -23,7 +23,7 @@ const Dashboard = () => {
         <Notification />
       )}
 
-      <View style={style.tabView}>
+      <View style={style.bottomTabView}>
         <TouchableOpacity
           style={style.tabBtn}
           onPress={() => setSelectedTab(0)}>
@@ -31,7 +31,7 @@ const Dashboard = () => {
             source={require('../../assets/icons/item.png')}
             style={[
               style.tabImg,
-              {tintColor: selectedTab == 0 ? 'red' : '#000'},
+              {tintColor: selectedTab == 0 ? '#E74C3C' : '#000'},
             ]}
           />
         </TouchableOpacity>
@@ -42,7 +42,7 @@ const Dashboard = () => {
             source={require('../../assets/icons/order.png')}
             style={[
               style.tabImg,
-              {tintColor: selectedTab == 1 ? 'red' : '#000'},
+              {tintColor: selectedTab == 1 ? '#E74C3Cf' : '#000'},
             ]}
           />
         </TouchableOpacity>
@@ -56,7 +56,7 @@ const Dashboard = () => {
               {
                 width: 35,
                 height: 35,
-                tintColor: selectedTab == 2 ? 'red' : '#000',
+                tintColor: selectedTab == 2 ? '#E74C3C' : '#000',
               },
             ]}
           />
@@ -68,7 +68,7 @@ const Dashboard = () => {
             source={require('../../assets/icons/transaction.png')}
             style={[
               style.tabImg,
-              {tintColor: selectedTab == 3 ? 'red' : '#000'},
+              {tintColor: selectedTab == 3 ? '#E74C3C' : '#000'},
             ]}
           />
         </TouchableOpacity>
@@ -79,7 +79,7 @@ const Dashboard = () => {
             source={require('../../assets/icons/notification.png')}
             style={[
               style.tabImg,
-              {tintColor: selectedTab == 4 ? 'red' : '#000'},
+              {tintColor: selectedTab == 4 ? '#E74C3C' : '#000'},
             ]}
           />
         </TouchableOpacity>
@@ -92,7 +92,7 @@ const style = StyleSheet.create({
   container: {
     flex: 1,
   },
-  tabView: {
+  bottomTabView: {
     width: '100%',
     height: 60,
     backgroundColor: '#fff',
@@ -101,6 +101,7 @@ const style = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
+    elevation:10,
   },
   tabBtn: {
     height: '100%',
