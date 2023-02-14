@@ -49,7 +49,7 @@ const Add = () => {
           .ref(`items/${imageUrl.name}`)
           .putFile(imageUrl.fileCopyUri);
         Alert.alert('Item upload successfuly');
-        
+
         setTimeout(() => {
           setItemName('');
           setPrice('');
