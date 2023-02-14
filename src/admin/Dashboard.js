@@ -23,6 +23,8 @@ const Dashboard = () => {
         <Notification />
       )}
 
+
+        {/* bottom tab navigation */}
       <View style={style.bottomTabView}>
         <TouchableOpacity
           style={style.tabBtn}
@@ -104,7 +106,6 @@ const style = StyleSheet.create({
     elevation:10,
   },
   tabBtn: {
-    height: '100%',
     width: '20%',
     alignItems: 'center',
     justifyContent: 'center',

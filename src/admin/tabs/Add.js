@@ -6,8 +6,9 @@ import {
   TextInput,
   ScrollView,
   Alert,
+  Image,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import DocumentPicker from 'react-native-document-picker';
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
@@ -64,12 +65,30 @@ const Add = () => {
       console.log(error);
     }
   };
+
+  // useEffect(()=>{
+  //   // getData()
+  // },[])
+
+  // const getData = async()=>{
+  //   try {
+  //     const items = await firestore().collection('items').get()
+  //     setImageUrl(items.docs[0]._data.imageUrl.fileCopyUri)
+  //     console.log(items.docs[0]._data.imageUrl.fileCopyUri)
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
+
   return (
-    <ScrollView style={style.container}>
-      <View style={style.container}>
-        <View style={style.header}>
-          <Text style={style.hText}>Add Item</Text>
-        </View>
+    <View style={style.container}>
+      <View style={style.header}>
+        <Text style={style.hText}>Add Item</Text>
+      </View>
+      <ScrollView  >
+        {imageUrl !== null ? (
+          <Image source={{uri: imageUrl.uri}} style={style.imgStyle} />
+        ) : null}
         <TextInput
           style={style.inputStyle}
           placeholder="Enter Item Name ..."
@@ -125,8 +144,8 @@ const Add = () => {
         <TouchableOpacity style={style.addItem} onPress={() => addItem()}>
           <Text style={style.btnText}>Add Item </Text>
         </TouchableOpacity>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </View>
   );
 };
 
@@ -141,7 +160,7 @@ const style = StyleSheet.create({
     backgroundColor: '#fff',
     justifyContent: 'center',
     paddingLeft: 15,
-    marginBottom: 10,
+    marginBottom: 20,
   },
   hText: {
     fontSize: 18,
@@ -173,11 +192,19 @@ const style = StyleSheet.create({
     height: 40,
     justifyContent: 'center',
     borderRadius: 15,
+    marginBottom:100
   },
   btnText: {
     color: '#fff',
     fontWeight: 700,
     alignSelf: 'center',
+  },
+  imgStyle: {
+    width: '90%',
+    height: 200,
+    borderRadius: 15,
+    alignSelf: 'center',
+    borderWidth: 1,
   },
 });
 
