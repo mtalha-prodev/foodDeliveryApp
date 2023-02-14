@@ -70,7 +70,7 @@ const AdminLogin = () => {
         />
       </View>
       <TouchableOpacity style={style.adminBtn} onPress={() => handleLogin()}>
-        <Text style={style.textBtn}>Admin Login</Text>
+        <Text style={style.textBtn}>Login</Text>
       </TouchableOpacity>
     </View>
   );
@@ -104,8 +104,9 @@ const style = StyleSheet.create({
     marginTop: 20,
   },
   textBtn: {
-    fontWeight: 600,
+    fontWeight: 'bold',
     fontSize: 16,
+    color:'#000'
   },
 });
 
