@@ -1,4 +1,4 @@
-import {View, Text, StatusBar} from 'react-native';
+import {View, StatusBar} from 'react-native';
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -8,6 +8,7 @@ import Signup from '../Screens/Signup';
 import Home from '../Screens/Home';
 import AdminLogin from '../admin/AdminLogin';
 import Dashboard from '../admin/Dashboard';
+import EditItem from '../admin/tabs/EditItem';
 
 const Navigator = () => {
   const Stack = createNativeStackNavigator();
@@ -47,6 +48,12 @@ const Navigator = () => {
             component={Dashboard}
             options={{headerShown: false}}
           />
+          <Stack.Screen
+            name="EditItem"
+            component={EditItem}
+            options={{headerShown: false}}
+          />
+          
 
         </Stack.Navigator>
       </NavigationContainer>

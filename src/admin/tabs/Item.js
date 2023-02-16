@@ -3,20 +3,21 @@ import {
   Text,
   StyleSheet,
   Image,
-  Button,
   FlatList,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import firestore from '@react-native-firebase/firestore';
+import { useNavigation } from '@react-navigation/native';
 
 const Item = () => {
   const [data, setData] = useState([]);
+  const navigation = useNavigation()
 
   useEffect(() => {
     getAllItems();
   }, []);
-
 
   // get All items in firestore
 
@@ -40,72 +41,75 @@ const Item = () => {
 
   // edit Item in firestore
 
-  const editItem = async()=>{
+  const editItem = async (item) => {
     try {
-      console.log('Edit items!')
+      navigation.navigate('EditItem', {id:item.id, item:item.data})
+      console.log('Edit items!');
     } catch (error) {
-        console.log(error)
+      console.log(error);
     }
-  }
-  
-  
+  };
+
   // delete Item in firestore
 
-  const deleteItem = async()=>{
+  const deleteItem = async id => {
     try {
-      console.log("delete items !")
+      const del = await firestore().collection('items').doc(id).delete();
+
+      // console.log("delete items !", del)
+      Alert.alert('Alert', 'Item Delete Successfuly !');
+
+      getAllItems();
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
-  
-  
-  
+  };
+
   return (
     <View style={style.constiner}>
-      <View style={{marginBottom:70}} >
-      <FlatList
-        data={data}
-        renderItem={({item, index}) => {
-          // console.log(item.data);
-          return (
-            <View style={style.cartBox} key={index}>
-              <View style={{flexDirection: 'row'}}>
-                <Image source={{uri: item.data.url}} style={style.imgStyle} />
-                <View style={style.cartDetail}>
-                  <Text style={{fontWeight: 500, color: 'red'}}>
-                    {item.data.itemName}
-                  </Text>
-                  <Text>{item.data.desc}</Text>
-                  <View style={{flexDirection: 'row'}}>
-                    <Text style={{marginRight: 5, color: 'green'}}>
-                      ${item.data.discountPrice}
+      <View style={{marginBottom: 70}}>
+        <FlatList
+          data={data}
+          renderItem={({item, index}) => {
+            // console.log(item.id);
+            return (
+              <View style={style.cartBox} key={index}>
+                <View style={{flexDirection: 'row'}}>
+                  <Image source={{uri: item.data.url}} style={style.imgStyle} />
+                  <View style={style.cartDetail}>
+                    <Text style={{fontWeight: 500, color: 'red'}}>
+                      {item.data.itemName}
                     </Text>
-                    <Text style={{textDecorationLine: 'line-through'}}>
-                      ${item.data.price}
-                    </Text>
+                    <Text>{item.data.desc}</Text>
+                    <View style={{flexDirection: 'row'}}>
+                      <Text style={{marginRight: 5, color: 'green'}}>
+                        ${item.data.discountPrice}
+                      </Text>
+                      <Text style={{textDecorationLine: 'line-through'}}>
+                        ${item.data.price}
+                      </Text>
+                    </View>
                   </View>
                 </View>
+                <View style={style.cartAction}>
+                  <TouchableOpacity onPress={() => editItem(item)}>
+                    <Image
+                      source={require('../../../assets/icons/edit.png')}
+                      style={style.icons}
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => deleteItem(item.id)}>
+                    <Image
+                      source={require('../../../assets/icons/delete.png')}
+                      style={style.icons}
+                    />
+                  </TouchableOpacity>
+                </View>
               </View>
-              <View style={style.cartAction}>
-                <TouchableOpacity onPress={()=>editItem()} >
-                  <Image
-                    source={require('../../../assets/icons/edit.png')}
-                    style={style.icons}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={()=>deleteItem()} >
-                  <Image
-                    source={require('../../../assets/icons/delete.png')}
-                    style={style.icons}
-                  />
-                </TouchableOpacity>
-              </View>
-            </View>
-          );
-        }}
+            );
+          }}
         />
-        </View>
+      </View>
     </View>
   );
 };
@@ -113,7 +117,7 @@ const Item = () => {
 const style = StyleSheet.create({
   constiner: {
     flex: 1,
-    marginTop:15
+    marginTop: 15,
   },
   cartBox: {
     width: '90%',
