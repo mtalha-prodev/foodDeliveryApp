@@ -28,7 +28,7 @@ const Navigator = () => {
             component={Main}
             options={{headerShown: false}}
           />
-          
+
           {/* admin screen */}
           <Stack.Screen
             name="Admin"
@@ -62,7 +62,6 @@ const Navigator = () => {
             component={Home}
             options={{headerShown: false}}
           />
-
         </Stack.Navigator>
       </NavigationContainer>
     </View>
