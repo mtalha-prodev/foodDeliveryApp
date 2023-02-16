@@ -7,23 +7,23 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import React, {useState} from 'react';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 
-const Login = () => {
+const UserLogin = () => {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
 
-  const navigation= useNavigation()
+  const navigation = useNavigation();
 
   const handleLogin = async () => {
     try {
       if (email.length > 0 && password.length > 0) {
         console.warn('account create successfuly');
-        
-        email('')
-        password('')
-      }else{
-        console.log('please enter correct val')
+
+        email('');
+        password('');
+      } else {
+        console.log('please enter correct val');
       }
     } catch (error) {
       console.log(error);
@@ -43,10 +43,12 @@ const Login = () => {
           placeholder="Enter Your Password ..."
         />
       </View>
-      <TouchableOpacity style={style.loginBtn} onPress={()=>handleLogin()} >
+      <TouchableOpacity style={style.loginBtn} onPress={() => handleLogin()}>
         <Text style={style.btnText}>Login</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={style.signup} onPress={()=>navigation.navigate('Signup')}>
+      <TouchableOpacity
+        style={style.signup}
+        onPress={() => navigation.navigate('Signup')}>
         <Text style={style.btnSign}>You don,t have an Account !</Text>
       </TouchableOpacity>
     </View>
@@ -101,4 +103,4 @@ const style = StyleSheet.create({
   },
 });
 
-export default Login;
+export default UserLogin;

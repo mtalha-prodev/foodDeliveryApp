@@ -7,7 +7,7 @@ const Splash = () => {
     const navigation= useNavigation()
     useEffect(() => {
         setTimeout(() => {
-            navigation.dispatch(StackActions.replace('Admin'))
+            navigation.dispatch(StackActions.replace('Main'))
         }, 2000);
     }, [])
 
