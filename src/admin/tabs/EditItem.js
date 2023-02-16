@@ -17,7 +17,7 @@ import storage from '@react-native-firebase/storage'
 const EditItem = () => {
   const route = useRoute();
 
-  console.log(route.params);
+  // console.log(route.params);
   const {id, item} = route.params;
   const [itemName, setItemName] = useState(item.itemName);
   const [price, setPrice] = useState(item.price);
