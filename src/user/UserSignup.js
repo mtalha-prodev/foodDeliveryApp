@@ -8,12 +8,14 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
+import Loader from '../components/Loader';
 
 const UserSignup = () => {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [name, setName] = useState(null);
   const [phone, setPhone] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false)
 
   const navigation = useNavigation();
 
@@ -21,27 +23,23 @@ const UserSignup = () => {
     try {
       // console.log(email)
       if (email.length > 0 && password.length > 0) {
+        setModalVisible(true)
         console.warn('account create successfuly');
-
+        
         setEmail('');
         setPassword('');
-        setShows(true);
+        setPhone('');
       } else {
         console.log('please enter correct val');
+        setModalVisible(false)
       }
     } catch (error) {
       console.log(error);
+      setModalVisible(false)
     }
   };
 
-  // profile image
-  const handleProfile = async () => {
-    try {
-      console.warn('image upload successfuly');
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  
 
   return (
     <View style={style.container}>
@@ -84,6 +82,7 @@ const UserSignup = () => {
       <TouchableOpacity style={style.loginBtn} onPress={() => handleSignup()}>
         <Text style={style.btnText}>Sign Up</Text>
       </TouchableOpacity>
+      <Loader modalVisible setModalVisible />
     </View>
   );
 };
