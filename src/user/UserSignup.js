@@ -5,12 +5,13 @@ import {
   StyleSheet,
   Dimensions,
   TextInput,
-  KeyboardAvoidingView,
   ScrollView,
+  Alert,
 } from 'react-native';
 import React, {useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import Loader from '../components/Loader';
+import firestore from '@react-native-firebase/firestore'
 
 const UserSignup = () => {
   const [email, setEmail] = useState(null);
@@ -24,20 +25,31 @@ const UserSignup = () => {
   const handleSignup = async () => {
     try {
       // console.log(email)
-      if (email.length > 0 && password.length > 0) {
+      if (email.length > 0 && password.length > 0 && name.length>0 &&  phone.length > 7)  {
         setModalVisible(!modalVisible);
-        console.warn('account create successfuly');
+
+        await firestore().collection('users').add({
+          name,
+          email,
+          phone,
+          password
+        })
+
+
+        Alert.alert('Alert','Created Successfuly !');
 
         setEmail('');
         setPassword('');
         setPhone('');
+        setName('')
+        navigation.navigate('User')
       } else {
-        console.log('please enter correct val');
-        setModalVisible(!modalVisible);
+        Alert.alert('Aler','Please Enter All Fields!');
+        setModalVisible(false);
       }
     } catch (error) {
       console.log(error);
-      setModalVisible(!modalVisible);
+      setModalVisible(false);
     }
   };
 
