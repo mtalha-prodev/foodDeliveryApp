@@ -1,4 +1,4 @@
-import {View, Modal, ActivityIndicator} from 'react-native';
+import {View, Modal, ActivityIndicator, StyleSheet} from 'react-native';
 import React from 'react';
 
 const Loader = ({modalVisible, setModalVisible}) => {

@@ -5,6 +5,8 @@ import {
   StyleSheet,
   Dimensions,
   TextInput,
+  KeyboardAvoidingView,
+  ScrollView,
 } from 'react-native';
 import React, {useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
@@ -15,7 +17,7 @@ const UserSignup = () => {
   const [password, setPassword] = useState(null);
   const [name, setName] = useState(null);
   const [phone, setPhone] = useState(false);
-  const [modalVisible, setModalVisible] = useState(false)
+  const [modalVisible, setModalVisible] = useState(false);
 
   const navigation = useNavigation();
 
@@ -23,66 +25,72 @@ const UserSignup = () => {
     try {
       // console.log(email)
       if (email.length > 0 && password.length > 0) {
-        setModalVisible(true)
+        setModalVisible(!modalVisible);
         console.warn('account create successfuly');
-        
+
         setEmail('');
         setPassword('');
         setPhone('');
       } else {
         console.log('please enter correct val');
-        setModalVisible(false)
+        setModalVisible(!modalVisible);
       }
     } catch (error) {
       console.log(error);
-      setModalVisible(false)
+      setModalVisible(!modalVisible);
     }
   };
 
-  
-
   return (
     <View style={style.container}>
-      <Text style={style.loginText}>Sign Up</Text>
-      <View style={style.inputForm}>
-        <TextInput
-          style={style.textInput}
-          value={name}
-          placeholder="Enter Your Name ..."
-          onChangeText={val => setName(val)}
-        />
-      </View>
-      <View style={style.inputForm}>
-        <TextInput
-          style={style.textInput}
-          value={email}
-          placeholder="Enter Your Email ..."
-          onChangeText={val => setEmail(val)}
-        />
-      </View>
-      <View style={style.inputForm}>
-        <TextInput
-          style={style.textInput}
-          keyboardType={"phone-pad"}
-          value={phone}
-          placeholder="Enter Your Phone ..."
-          onChangeText={val => setPhone(val)}
-        />
-      </View>
-      <View style={style.inputForm}>
-        <TextInput
-          style={style.textInput}
-          value={password}
-          placeholder="Enter Your Password ..."
-          onChangeText={val => setPassword(val)}
-        />
-      </View>
+      <ScrollView contentContainerStyle={{justifyContent:'center', alignItems:'center'}} >
+        <View style={{alignItems:'center'}}>
+          <Text style={style.loginText}>Sign Up</Text>
+          <View style={style.inputForm}>
+            <TextInput
+              style={style.textInput}
+              value={name}
+              placeholder="Enter Your Name ..."
+              onChangeText={val => setName(val)}
+            />
+          </View>
+          <View style={style.inputForm}>
+            <TextInput
+              style={style.textInput}
+              value={email}
+              placeholder="Enter Your Email ..."
+              onChangeText={val => setEmail(val)}
+            />
+          </View>
+          <View style={style.inputForm}>
+            <TextInput
+              style={style.textInput}
+              keyboardType={'phone-pad'}
+              value={phone}
+              placeholder="Enter Your Phone ..."
+              onChangeText={val => setPhone(val)}
+            />
+          </View>
+          <View style={style.inputForm}>
+            <TextInput
+              style={style.textInput}
+              value={password}
+              placeholder="Enter Your Password ..."
+              onChangeText={val => setPassword(val)}
+            />
+          </View>
 
-      
-      <TouchableOpacity style={style.loginBtn} onPress={() => handleSignup()}>
-        <Text style={style.btnText}>Sign Up</Text>
-      </TouchableOpacity>
-      <Loader modalVisible setModalVisible />
+          <TouchableOpacity
+            style={style.loginBtn}
+            onPress={() => handleSignup()}>
+            <Text style={style.btnText}>Sign Up</Text>
+          </TouchableOpacity>
+          <Loader
+            modalVisible={modalVisible}
+            setModalVisible={setModalVisible}
+          />
+        </View>
+      </ScrollView>
     </View>
   );
 };
@@ -94,6 +102,7 @@ const style = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop:70
   },
   loginText: {
     marginBottom: 20,
