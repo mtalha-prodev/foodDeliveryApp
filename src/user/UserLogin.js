@@ -76,10 +76,10 @@ const style = StyleSheet.create({
     width: width - 30,
     padding: 5,
     borderBottomWidth: 3,
-    borderBottomColor: '#E74C3C',
+    borderBottomColor: '#D4AC0D',
   },
   loginBtn: {
-    backgroundColor: '#E74C3C',
+    backgroundColor: '#D4AC0D',
     padding: 5,
     alignItems: 'center',
     marginVertical: 25,
@@ -98,8 +98,11 @@ const style = StyleSheet.create({
     width: width - 30,
   },
   btnSign: {
-    color: '#3498DB',
-    fontSize: 18,
+    // color: '#3498DB',
+    fontSize: 13,
+    textTransform:'uppercase',  
+    fontWeight:500,
+    textDecorationLine:'underline'
   },
 });
 

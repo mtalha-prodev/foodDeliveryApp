@@ -48,7 +48,7 @@ const Navigator = () => {
 
           {/* user screen */}
           <Stack.Screen
-            name="Login"
+            name="User"
             component={UserLogin}
             options={{headerShown: false}}
           />

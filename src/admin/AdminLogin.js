@@ -29,7 +29,7 @@ const AdminLogin = () => {
 
         const admin = await firestore().collection('admin').get()
         const {email,password} = admin.docs[0]._data
-        console.log(email,password);
+        // console.log(email,password);
 
       if (adminEmail == email  && adminPassword == password) {
         
