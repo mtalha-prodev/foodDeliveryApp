@@ -23,8 +23,7 @@ const Dashboard = () => {
         <Notification />
       )}
 
-
-        {/* bottom tab navigation */}
+      {/* bottom tab navigation */}
       <View style={style.bottomTabView}>
         <TouchableOpacity
           style={style.tabBtn}
@@ -44,7 +43,7 @@ const Dashboard = () => {
             source={require('../../assets/icons/order.png')}
             style={[
               style.tabImg,
-              {tintColor: selectedTab == 1 ? '#E74C3Cf' : '#000'},
+              {tintColor: selectedTab == 1 ? '#E74C3C' : '#000'},
             ]}
           />
         </TouchableOpacity>
@@ -103,7 +102,7 @@ const style = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    elevation:10,
+    elevation: 10,
   },
   tabBtn: {
     width: '20%',

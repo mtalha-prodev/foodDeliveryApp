@@ -11,7 +11,7 @@ import {
 import React, {useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import Loader from '../components/Loader';
-import firestore from '@react-native-firebase/firestore'
+import firestore from '@react-native-firebase/firestore';
 
 const UserSignup = () => {
   const [email, setEmail] = useState(null);
@@ -25,26 +25,30 @@ const UserSignup = () => {
   const handleSignup = async () => {
     try {
       // console.log(email)
-      if (email.length > 0 && password.length > 0 && name.length>0 &&  phone.length > 7)  {
+      if (
+        email.length > 0 &&
+        password.length > 0 &&
+        name.length > 0 &&
+        phone.length > 7
+      ) {
         setModalVisible(!modalVisible);
 
-        await firestore().collection('users').add({
-          name,
-          email,
-          phone,
-          password
-        })
+        // await firestore().collection('users').add({
+        //   name,
+        //   email,
+        //   phone,
+        //   password,
+        // });
 
-
-        Alert.alert('Alert','Created Successfuly !');
+        Alert.alert('Alert', 'Created Successfuly !');
 
         setEmail('');
         setPassword('');
         setPhone('');
-        setName('')
-        navigation.navigate('User')
+        setName('');
+        navigation.navigate('User');
       } else {
-        Alert.alert('Aler','Please Enter All Fields!');
+        Alert.alert('Aler', 'Please Enter All Fields!');
         setModalVisible(false);
       }
     } catch (error) {
@@ -55,14 +59,19 @@ const UserSignup = () => {
 
   return (
     <View style={style.container}>
-      <ScrollView contentContainerStyle={{justifyContent:'center', alignItems:'center'}} >
-        <View style={{alignItems:'center'}}>
+      <ScrollView
+        contentContainerStyle={{
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <View style={{alignItems: 'center'}}>
           <Text style={style.loginText}>Sign Up</Text>
           <View style={style.inputForm}>
             <TextInput
               style={style.textInput}
               value={name}
               placeholder="Enter Your Name ..."
+              placeholderTextColor={'gray'}
               onChangeText={val => setName(val)}
             />
           </View>
@@ -71,6 +80,7 @@ const UserSignup = () => {
               style={style.textInput}
               value={email}
               placeholder="Enter Your Email ..."
+              placeholderTextColor={'gray'}
               onChangeText={val => setEmail(val)}
             />
           </View>
@@ -80,6 +90,7 @@ const UserSignup = () => {
               keyboardType={'phone-pad'}
               value={phone}
               placeholder="Enter Your Phone ..."
+              placeholderTextColor={'gray'}
               onChangeText={val => setPhone(val)}
             />
           </View>
@@ -88,6 +99,7 @@ const UserSignup = () => {
               style={style.textInput}
               value={password}
               placeholder="Enter Your Password ..."
+              placeholderTextColor={'gray'}
               onChangeText={val => setPassword(val)}
             />
           </View>
@@ -114,12 +126,13 @@ const style = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop:70
+    marginTop: 70,
   },
   loginText: {
     marginBottom: 20,
     fontSize: 25,
     fontWeight: 'bold',
+    color: '#000',
   },
   inputForm: {
     marginVertical: 10,
@@ -130,20 +143,23 @@ const style = StyleSheet.create({
     padding: 5,
     borderBottomWidth: 3,
     borderBottomColor: '#D4AC0D',
+    color: '#000',
+    fontSize: 18,
   },
   loginBtn: {
     backgroundColor: '#D4AC0D',
-    padding: 5,
+    padding: 8,
     alignItems: 'center',
-    marginVertical: 25,
+    marginTop: 35,
     borderRadius: 15,
     width: width - 30,
   },
   btnText: {
     color: 'white',
-    fontSize: 18,
+    fontSize: 20,
     letterSpacing: 1,
     fontWeight: 500,
+    color: '#000',
   },
 });
 

@@ -38,34 +38,33 @@ const Add = () => {
 
   const addItem = async () => {
     try {
-      if (itemName && price && discountPrice && desc && imageUrl) {
-        const response = storage().ref(`items/${imageUrl.name}`);
+      Alert.alert('Item upload successfuly');
+      // if (itemName && price && discountPrice && desc && imageUrl) {
+      //   // const response = storage().ref(`items/${imageUrl.name}`);
 
-        const put = await response.putFile(imageUrl.fileCopyUri);
-        // upload image in firestore
-        const url = await response.getDownloadURL();
-        // console.log(url);
+      //   // const put = await response.putFile(imageUrl.fileCopyUri);
+      //   // upload image in firestore
+      //   // const url = await response.getDownloadURL();
+      //   // console.log(url);
 
-        await firestore().collection('items').add({
-          itemName,
-          price,
-          discountPrice,
-          desc,
-          url,
-        });
+      //   // await firestore().collection('items').add({
+      //   //   itemName,
+      //   //   price,
+      //   //   discountPrice,
+      //   //   desc,
+      //   //   url,
+      //   // });
 
-        Alert.alert('Item upload successfuly');
-
-        setTimeout(() => {
-          setItemName('');
-          setPrice('');
-          setDiscountPrice('');
-          setImageUrl('');
-          setDesc('');
-        }, 2000);
-      } else {
-        console.warn('Something Wrong !');
-      }
+      //   setTimeout(() => {
+      //     setItemName('');
+      //     setPrice('');
+      //     setDiscountPrice('');
+      //     setImageUrl('');
+      //     setDesc('');
+      //   }, 2000);
+      // } else {
+      //   console.warn('Something Wrong !');
+      // }
     } catch (error) {
       console.log(error);
     }

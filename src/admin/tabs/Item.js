@@ -9,11 +9,11 @@ import {
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import firestore from '@react-native-firebase/firestore';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 
 const Item = () => {
   const [data, setData] = useState([]);
-  const navigation = useNavigation()
+  const navigation = useNavigation();
 
   useEffect(() => {
     getAllItems();
@@ -41,10 +41,10 @@ const Item = () => {
 
   // edit Item in firestore
 
-  const editItem = async (item) => {
+  const editItem = async item => {
     try {
-      navigation.navigate('EditItem', {id:item.id, item:item.data})
-      console.log('Edit items!');
+      navigation.navigate('EditItem', {id: item.id, item: item.data});
+      // console.log('Edit items!');
     } catch (error) {
       console.log(error);
     }
@@ -54,12 +54,19 @@ const Item = () => {
 
   const deleteItem = async id => {
     try {
-      const del = await firestore().collection('items').doc(id).delete();
-
       // console.log("delete items !", del)
-      Alert.alert('Alert', 'Item Delete Successfuly !');
-
-      getAllItems();
+      Alert.alert('Alert', 'Item Delete Successfuly !', [
+        {
+          text: 'Delete',
+          onPress: async () => {
+            await firestore().collection('items').doc(id).delete();
+            getAllItems();
+          },
+        },
+        {
+          text: 'Cancel',
+        },
+      ]);
     } catch (error) {
       console.log(error);
     }

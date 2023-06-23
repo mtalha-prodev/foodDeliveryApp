@@ -5,9 +5,12 @@ import {
   TextInput,
   Dimensions,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import React, {useState} from 'react';
-import {useNavigation} from '@react-navigation/native';
+import {StackActions, useNavigation} from '@react-navigation/native';
+import firestore from '@react-native-firebase/firestore';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const UserLogin = () => {
   const [email, setEmail] = useState(null);
@@ -17,13 +20,32 @@ const UserLogin = () => {
 
   const handleLogin = async () => {
     try {
-      if (email.length > 0 && password.length > 0) {
-        console.warn('account create successfuly');
+      // firebase
+      // if (email != null && password != null) {
+      //   const query = await firestore()
+      //     .collection('users')
+      //     .where('email', '==', email)
+      //     .get();
 
+      //   const data = query.docs.map(user => user._data);
+      //   if (data[0].email == email && data[0].password == password) {
+      //     // console.log(data[0].email);
+      //     await AsyncStorage.setItem('EMAIL', email);
+      //     navigation.dispatch(StackActions.replace('Home'));
+      //   } else {
+      //     Alert.alert('Alert', 'Wrong Email/Password');
+      //   }
+
+      if (email != null && password != null) {
+        // console.log(data[0].email);
+        await AsyncStorage.setItem('EMAIL', email);
+        navigation.dispatch(StackActions.replace('Home'));
+
+        Alert.alert('Alert', 'User Login Successfuly');
         email('');
         password('');
       } else {
-        console.log('please enter correct val');
+        Alert.alert('Alert', 'Please enter Email/Password');
       }
     } catch (error) {
       console.log(error);
@@ -32,15 +54,23 @@ const UserLogin = () => {
 
   return (
     <View style={style.container}>
-      <Text style={style.loginText}> Login</Text>
+      <Text style={style.loginText}> Users</Text>
 
       <View style={style.inputForm}>
-        <TextInput style={style.textInput} placeholder="Enter Your Email ..." />
+        <TextInput
+          style={style.textInput}
+          placeholder="Enter Your Email ..."
+          placeholderTextColor={'gray'}
+          onChangeText={val => setEmail(val)}
+        />
       </View>
       <View style={style.inputForm}>
         <TextInput
           style={style.textInput}
           placeholder="Enter Your Password ..."
+          placeholderTextColor={'gray'}
+          onChangeText={val => setPassword(val)}
+          secureTextEntry={true}
         />
       </View>
       <TouchableOpacity style={style.loginBtn} onPress={() => handleLogin()}>
@@ -67,6 +97,7 @@ const style = StyleSheet.create({
     marginBottom: 20,
     fontSize: 25,
     fontWeight: 'bold',
+    color: '#000',
   },
   inputForm: {
     marginVertical: 10,
@@ -77,10 +108,12 @@ const style = StyleSheet.create({
     padding: 5,
     borderBottomWidth: 3,
     borderBottomColor: '#D4AC0D',
+    fontSize: 18,
+    color: '#000',
   },
   loginBtn: {
     backgroundColor: '#D4AC0D',
-    padding: 5,
+    padding: 8,
     alignItems: 'center',
     marginVertical: 25,
     borderRadius: 15,
@@ -88,9 +121,10 @@ const style = StyleSheet.create({
   },
   btnText: {
     color: 'white',
-    fontSize: 18,
+    fontSize: 20,
     letterSpacing: 1,
     fontWeight: 500,
+    color: '#000',
   },
   signup: {
     marginTop: 20,
@@ -98,11 +132,11 @@ const style = StyleSheet.create({
     width: width - 30,
   },
   btnSign: {
-    // color: '#3498DB',
+    color: 'gray',
     fontSize: 13,
-    textTransform:'uppercase',  
-    fontWeight:500,
-    textDecorationLine:'underline'
+    textTransform: 'uppercase',
+    fontWeight: 500,
+    textDecorationLine: 'underline',
   },
 });
 
